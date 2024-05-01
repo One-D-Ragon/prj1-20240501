@@ -22,8 +22,6 @@ public class BoardController {
 
     @PostMapping("/add")
     public String addPost(Board board, RedirectAttributes rttr) {
-        System.out.println("board = " + board);
-
         service.add(board);
 
         rttr.addAttribute("id", board.getId());
@@ -39,16 +37,14 @@ public class BoardController {
         // 모델에 넣고
         model.addAttribute("board", board);
         // jsp 로 포워드
-        return "/board/view";
+        return "board/view";
     }
 
     @GetMapping("/")
     public String home(Model model) {
         // 게시물 목록 조회(select)
-        service.list();
         // 모델에 넣고
         model.addAttribute("boardList", service.list());
-
         // jsp로 포워드
         return "board/home";
     }

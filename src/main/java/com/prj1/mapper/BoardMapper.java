@@ -12,12 +12,12 @@ import java.util.List;
 public interface BoardMapper {
 
     @Insert("""
-            INSERT INTO board
-            (title, content, writer)
+            INSERT INTO board (title, content, writer)
             VALUES (#{title}, #{content}, #{writer})
             """)
     @Options(useGeneratedKeys = true, keyProperty = "id")
     int insert(Board board);
+    // board가 가지고 있는 프로퍼티가 각각의 #{}에 채워진다
 
     @Select("""
             SELECT *
@@ -25,7 +25,6 @@ public interface BoardMapper {
             WHERE id = #{id}
             """)
     Board selectById(Integer id);
-//    board가 가지고 있는 프로퍼티가 각각의 #{}에 채워진다
 
     @Select("""
             SELECT *
@@ -34,3 +33,4 @@ public interface BoardMapper {
             """)
     List<Board> selectAll();
 }
+

@@ -18,6 +18,7 @@
     </thead>
     <tbody>
     <c:forEach items="${boardList}" var="board">
+        <%--todo 제목을 클릭하면 해당 게시물 보는 화면으로 이동 하도록 수정--%>
         <tr>
             <td>${board.id}</td>
             <td>${board.title}</td>

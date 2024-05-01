@@ -7,6 +7,7 @@
 <body>
 
 <h3>새 게시물 작성</h3>
+
 <form action="/add" method="post">
     <div>
         제목
