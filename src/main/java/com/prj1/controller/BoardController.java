@@ -25,7 +25,8 @@ public class BoardController {
         service.add(board);
 
         rttr.addAttribute("id", board.getId());
-        return "redirect:/board?id=";
+        return "redirect:/board?";
+//        return "redirect:/board?id=";
     }
 
     // /board?id=3

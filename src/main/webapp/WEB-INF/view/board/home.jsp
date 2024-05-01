@@ -6,6 +6,8 @@
 </head>
 <body>
 
+<c:import url="/WEB-INF/fragment/navbar.jsp"></c:import>
+
 <h3>게시물 목록</h3>
 
 <table>
@@ -18,10 +20,15 @@
     </thead>
     <tbody>
     <c:forEach items="${boardList}" var="board">
-        <%--todo 제목을 클릭하면 해당 게시물 보는 화면으로 이동 하도록 수정--%>
+        <c:url value="/board" var="viewLink">
+            <c:param name="id" value="${board.id}"/>
+        </c:url>
         <tr>
             <td>${board.id}</td>
-            <td>${board.title}</td>
+            <td>
+                    <%--<a href="/board?id=${board.id}">${board.title}</a>--%>
+                <a href="${viewLink}">${board.title}</a>
+            </td>
             <td>${board.writer}</td>
         </tr>
     </c:forEach>
