@@ -8,6 +8,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 @Controller
@@ -66,5 +67,15 @@ public class MemberController {
 
         rttr.addAttribute("id", member.getId());
         return "redirect:/member";
+    }
+
+    @GetMapping("email")
+    @ResponseBody /*응답한 데이터를 view로 해석하지 않는다*/
+    public String emailCheck(String email) {
+//        System.out.println("email = " + email);
+        String message = service.emailCheck(email);
+        // ajax는 일한 결과(message)가 바로 응답됨 -> model에 저장하지 않는다
+
+        return message; // response가 온다
     }
 }

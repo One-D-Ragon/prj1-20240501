@@ -7,7 +7,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.3/css/bootstrap.min.css"
           integrity="sha512-jnSuA4Ss2PkkikSOLtYs8BlYIeeIK1h99ty4YfvRPAlzr377vr3CXDb7sb7eEEBYjDtcYj+AjBH3FLv5uSJuXg=="
           crossorigin="anonymous" referrerpolicy="no-referrer"/>
-</head>
+
 </head>
 <body>
 
@@ -20,18 +20,31 @@
 
             <h3 class="mb-4">회원 가입</h3>
             <form action="/member/signup" method="post" onsubmit="return checkValues()">
+                <%-- onsubmit을 통해 제출하기 전에 패스워드가 일치하는지 알려주는 알림창을 띄운다 --%>
                 <%-- div*3>label.form-label+input.form-control --%>
                 <div class="mb-3">
                     <label for="inputEmail" class="form-label">이메일</label>
-                    <input id="inputEmail" name="email" required type="email" class="form-control">
+                    <div class="input-group">
+                        <input id="inputEmail" name="email" required type="email" class="form-control">
+                        <button onclick="emailCheck();" type="button" id="buttonEmailCheck"
+                                class="btn btn-outline-secondary">중복 확인
+                        </button>
+                        <%--button이 form 안에 있으면 submit 버튼으로 인식되서 type으로 button을 써준다--%>
+                    </div>
                 </div>
                 <div class="mb-3">
                     <label for="inputPassword" class="form-label">패스워드</label>
-                    <input id="inputPassword" name="password" required type="password" class="form-control">
+                    <input oninput="passwordCheck()" id="inputPassword" name="password" required type="password"
+                           class="form-control">
                 </div>
                 <div class="mb-3">
                     <label for="inputPasswordCheck" class="form-label">패스워드 확인</label>
-                    <input id="inputPasswordCheck" required type="password" class="form-control">
+                    <input oninput="passwordCheck()" id="inputPasswordCheck" required type="password"
+                           class="form-control">
+                    <%-- passwordCheck의 name까지 넘어가면 2개가 넘어가서 name을 삭제--%>
+                    <%-- oninput 속성으로 변경하는 중에 패스워드가 일치하는지 체크--%>
+                    <div class="form-text" id="passwordMessage"></div>
+                    <%-- form-text를 사용해서 패스워드 일치여부를 보여주는 메세지 표시 --%>
                 </div>
                 <div class="mb-3">
                     <label for="inputNickName" class="form-label">별명</label>
@@ -47,7 +60,33 @@
 </div>
 
 <script>
+    async function emailCheck() {
+        const emailValue = document.querySelector("#inputEmail").value;
+        const url = "/member/email?email=" + emailValue;
+
+        // ajax 요청
+        const reponse = await fetch(encodeURI(url)); // 객체의 타입이 response
+        // await : 비동기적 함수를 동기적으로 사용
+        // 응답처리
+        // console.log(reponse.text());
+        alert(await reponse.text());
+    }
+
+    function passwordCheck() {
+        /*패스워드가 일치하는지 패스워드 입력창 밑에 보여준다*/
+        const password = document.querySelector("#inputPassword").value;
+        const passwordCheck = document.querySelector("#inputPasswordCheck").value;
+
+        if (password != passwordCheck) {
+            // 메세지 보여주기
+            document.querySelector("#passwordMessage").textContent = "패스워드가 일치하지 않습니다."
+        } else {
+            document.querySelector("#passwordMessage").textContent = ""
+        }
+    }
+
     function checkValues() {
+        /* 제출하기 전에 패스워드가 일치하는지 알림창을 띄워준다*/
         const password = document.getElementById("inputPassword").value;
         const passwordCheck = document.getElementById("inputPasswordCheck").value;
 
