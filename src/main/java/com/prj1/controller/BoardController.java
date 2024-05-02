@@ -25,7 +25,7 @@ public class BoardController {
         service.add(board);
 
         rttr.addAttribute("id", board.getId());
-        return "redirect:/board?";
+        return "redirect:/board";
 //        return "redirect:/board?id=";
     }
 
@@ -63,7 +63,6 @@ public class BoardController {
         // 모델에 넣고
         model.addAttribute("board", service.get(id));
         // view로 포워드
-
         return "board/modify";
     }
 

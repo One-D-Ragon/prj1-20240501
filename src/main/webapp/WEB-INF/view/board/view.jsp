@@ -10,13 +10,13 @@
 </head>
 <body>
 
-
-<%--col이라는 클래스는 row클래스에 감싸져있다, 최대 길이는 12--%>
-<%--<div class="row justify-content-center" style="background-color: grey; height: 100px;">--%>
-<%--    <div class="col-6" style="background-color: red"></div>--%>
-<%--    <div class="col-4" style="background-color: blue"></div>--%>
-<%--    <div class="col-4" style="background-color: green"></div>--%>
-<%--</div>--%>
+<%--
+    <div class="row justify-content-center" style="background-color: grey; height: 100px;">
+    <div class="col-6" style="background-color: red"></div>
+    <div class="col-4" style="background-color: blue"></div>
+    <div class="col-4" style="background-color: green"></div>
+    </div>
+--%> <%--col이라는 클래스는 row클래스에 감싸져있다, 최대 길이는 12--%>
 
 <c:import url="/WEB-INF/fragment/navbar.jsp"></c:import>
 
@@ -24,7 +24,9 @@
 
     <div class="row justify-content-center"> <%-- 행에 justify-content-center를 준다--%>
         <div class="col-6"> <%-- col은 적절한 너비를 가지게 함, row 안에 작성 --%>
+
             <h3 class="mb-4">${board.id} 번 게시물</h3>
+
             <%-- 1rem = 16px --%>
             <div class="mb-3"> <%--margin-bottom 3--%>
                 <label for="inputTitle" class="form-label">
@@ -60,6 +62,7 @@
                 <a href="/modify?id=${board.id}" class="btn btn-secondary">수정</a>
                 <%--btn btn-danger와 btn btn-secondary 클래스는 버튼의 디자인을 바꿔준다--%>
             </div>
+
         </div>
     </div>
 </div>
@@ -69,7 +72,6 @@
         <input type="hidden" name="id" value="${board.id}">
     </form>
 </div>
-
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"

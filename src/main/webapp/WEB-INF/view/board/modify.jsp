@@ -8,6 +8,7 @@
           integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
 </head>
 <body>
+
 <c:import url="/WEB-INF/fragment/navbar.jsp"/>
 
 <div class="container">
@@ -15,6 +16,7 @@
         <div class="col-6">
 
             <h3 class="mb-4">${board.id}번 게시물 수정</h3>
+
             <form action="/modify" method="post">
                 <input type="hidden" name="id" value="${board.id}">
                 <div class="mb-3">
