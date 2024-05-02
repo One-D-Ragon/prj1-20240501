@@ -44,4 +44,11 @@ public class MemberController {
 
         return "member/info";
     }
+
+    @PostMapping("remove")
+    public String remove(Integer id) {
+        service.remove(id);
+
+        return "redirect:/member/signup";
+    }
 }

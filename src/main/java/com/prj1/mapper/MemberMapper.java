@@ -1,6 +1,7 @@
 package com.prj1.mapper;
 
 import com.prj1.domain.Member;
+import org.apache.ibatis.annotations.Delete;
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Select;
@@ -23,6 +24,7 @@ public interface MemberMapper {
             ORDER BY id DESC
             """)
     List<Member> selectAll();
+    // select 쿼리를 실행해서 member 테이블의 모든 데이터를 조회하고 List<Member> 객체에 저장한다
 
     @Select("""
             SELECT *
@@ -30,5 +32,10 @@ public interface MemberMapper {
             WHERE id = #{id}
             """)
     Member selectById(Integer id);
-    // select 쿼리를 실행해서 member 테이블의 모든 데이터를 조회하고 List<Member> 객체에 저장한다
+
+    @Delete("""
+            DELETE FROM member
+            WHERE id = #{id}
+            """)
+    int deleteById(Integer id);
 }
