@@ -3,6 +3,7 @@ package com.prj1.controller;
 import com.prj1.domain.Board;
 import com.prj1.service.BoardService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -22,8 +23,11 @@ public class BoardController {
     }
 
     @PostMapping("/add")
-    public String addPost(Board board, RedirectAttributes rttr) {
-        service.add(board);
+    public String addPost(Board board, Authentication authentication, RedirectAttributes rttr) {
+        // Authentication -> 스프링 시큐리티에게 현재 로그인해있는 사람의 정보를 얻음
+        // 로그인해 있는 사람의 정보가 들어있음
+        // username, password -> UserDetails(customUser) username, password
+        service.add(board, authentication);
 
         rttr.addAttribute("id", board.getId());
         return "redirect:/board";
