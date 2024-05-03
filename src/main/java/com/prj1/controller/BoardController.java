@@ -63,8 +63,11 @@ public class BoardController {
     }
 
     @PostMapping("/delete")
-    public String delete(Integer id) {
-        service.remove(id);
+    public String delete(Integer id, Authentication authentication) {
+        // id는 게시물의 정보, authentication은 작성한 사람의 정보
+        if (service.hasAccess(id, authentication)) {
+            service.remove(id);
+        }
 
         return "redirect:/";
     }
