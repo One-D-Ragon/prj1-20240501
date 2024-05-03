@@ -3,6 +3,7 @@ package com.prj1.controller;
 import com.prj1.domain.Member;
 import com.prj1.service.MemberService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -48,8 +49,11 @@ public class MemberController {
     }
 
     @PostMapping("remove")
-    public String remove(Integer id) {
-        service.remove(id);
+    public String remove(Integer id, Authentication authentication) {
+        if (service.hasAccess(id, authentication)) {
+            // 접근 가능할때만 삭제
+            service.remove(id);
+        }
 
         return "redirect:/member/signup";
     }
