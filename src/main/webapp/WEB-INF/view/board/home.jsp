@@ -49,6 +49,70 @@
     </div>
 </div>
 
+<%--div.container>div.row.justify-content-center>div.col-6--%>
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-6">
+            <%--맨처음(1) 페이지로 가기--%>
+            <c:if test="${pageInfo.currentPageNumber > 1}">
+                <%--현재 페이지 번호가 1보다 클때만 맨앞 버튼이 보임--%>
+
+                <c:url value="/" var="firstPageLink">
+                    <c:param name="page" value="1"/>
+                </c:url>
+                <a href="${firstPageLink}">
+                    맨앞
+                </a>
+            </c:if>
+
+            <%--이전 페이지 링크--%>
+            <c:if test="${pageInfo.prevPageNumber > 0}">
+                <%--현재 페이지가 10보다 클때만 이전 페이지 버튼을 보임--%>
+
+                <c:url value="/" var="prevPageLink">
+                    <c:param name="page" value="${pageInfo.prevPageNumber}"/>
+                </c:url>
+                <a href="${prevPageLink}">
+                    이전
+                </a>
+            </c:if>
+
+            <%--페이지 번호 링크들..--%>
+            <c:forEach begin="${pageInfo.beginPageNumber}" end="${pageInfo.endPageNumber}" var="pageNumber">
+                <c:url var="pageLink" value="/">
+                    <c:param name="page" value="${pageNumber}"></c:param>
+                </c:url>
+                <a href="${pageLink}">${pageNumber}</a>
+            </c:forEach>
+
+            <%--다음 페이지 링크--%>
+            <c:if test="${pageInfo.nextPageNumber < pageInfo.lastPageNumber}">
+                <%--다음 페이지 번호가 마지막 페이지 번호보다 작을때 다음 페이지 버튼이 보임--%>
+
+                <c:url value="/" var="nextPageLink">
+                    <c:param name="page" value="${pageInfo.nextPageNumber}"/>
+                </c:url>
+                <a href="${nextPageLink}">
+                    다음
+                </a>
+            </c:if>
+
+            <%--맨뒤(마지막) 페이지 이동 링크--%>
+            <c:if test="${pageInfo.currentPageNumber < pageInfo.lastPageNumber}">
+                <%--현재 페이지 번호가 마지막 페이지 번호보다 작을때만 맨뒤 버튼이 보임--%>
+
+                <c:url value="/" var="lastPageLink">
+                    <c:param name="page" value="${pageInfo.lastPageNumber}"/>
+                </c:url>
+                <a href="${lastPageLink}">
+                    맨뒤
+                </a>
+            </c:if>
+        </div>
+    </div>
+</div>
+
+
 <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.3/js/bootstrap.min.js"
         integrity="sha512-ykZ1QQr0Jy/4ZkvKuqWn4iF3lqPZyij9iRv6sGqLRdTPkY69YX6+7wvVGmsdBbiIfN/8OdsI7HABjvEok6ZopQ=="
         crossorigin="anonymous" referrerpolicy="no-referrer"></script>
