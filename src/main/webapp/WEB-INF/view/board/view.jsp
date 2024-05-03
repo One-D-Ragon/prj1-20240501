@@ -1,5 +1,6 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="jakarta.tags.core" %>
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 <html>
 <head>
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -57,22 +58,44 @@
                 <input id="inputInserted" class="form-control" type="datetime-local" value="${board.inserted}" readonly>
             </div>
 
-            <div class="mb-3">
-                <%-- button이 외부로 빠졌을때 form의 id를 form을 통해주면 작동한다 --%>
-                <button form="formDelete" class="btn btn-danger">삭제</button>
-                <a href="/modify?id=${board.id}" class="btn btn-secondary">수정</a>
-                <%--btn btn-danger와 btn btn-secondary 클래스는 버튼의 디자인을 바꿔준다--%>
-            </div>
+            <%--로그인된 사용자의 id와--%>
+            <%--로그인된--%>
+            <sec:authorize access="isAuthenticated()">
+
+                <%--사용자--%>
+                <sec:authentication property="principal.member" var="member"/>
+
+                <%--게시물의 memberId가 같으면--%>
+                <c:if test="${member.id eq board.memberId}">
+                    <div class="mb-3">
+                            <%-- button이 외부로 빠졌을때 form의 id를 form을 통해주면 작동한다 --%>
+                        <button form="formDelete" class="btn btn-danger">삭제</button>
+                        <a href="/modify?id=${board.id}" class="btn btn-secondary">수정</a>
+                            <%--btn btn-danger와 btn btn-secondary 클래스는 버튼의 디자인을 바꿔준다--%>
+                    </div>
+                </c:if>
+            </sec:authorize>
 
         </div>
     </div>
 </div>
 
-<div style="display: none"> <%--form의 형식 button이 외부로 빠졌지만 id를 통해 작동한다--%>
-    <form id="formDelete" action="/delete" method="post" onsubmit="return confirm('삭제 하시겠습니까?')">
-        <input type="hidden" name="id" value="${board.id}">
-    </form>
-</div>
+<%--로그인된 사용자의 id와--%>
+<%--로그인된--%>
+<sec:authorize access="isAuthenticated()">
+
+    <%--사용자--%>
+    <sec:authentication property="principal.member" var="member"/>
+
+    <%--게시물의 memberId가 같으면--%>
+    <c:if test="${member.id eq board.memberId}">
+        <div style="display: none"> <%--form의 형식 button이 외부로 빠졌지만 id를 통해 작동한다--%>
+            <form id="formDelete" action="/delete" method="post" onsubmit="return confirm('삭제 하시겠습니까?')">
+                <input type="hidden" name="id" value="${board.id}">
+            </form>
+        </div>
+    </c:if>
+</sec:authorize>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.3/js/bootstrap.min.js"
         integrity="sha512-ykZ1QQr0Jy/4ZkvKuqWn4iF3lqPZyij9iRv6sGqLRdTPkY69YX6+7wvVGmsdBbiIfN/8OdsI7HABjvEok6ZopQ=="
