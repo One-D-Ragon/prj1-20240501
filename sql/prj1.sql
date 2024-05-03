@@ -40,3 +40,4 @@ FROM board;
 
 SELECT *
 FROM board;
+

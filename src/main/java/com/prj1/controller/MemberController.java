@@ -78,4 +78,9 @@ public class MemberController {
 
         return message; // response가 온다
     }
+
+    @GetMapping("login")
+    public String loginForm() {
+        return "member/login";
+    }
 }
