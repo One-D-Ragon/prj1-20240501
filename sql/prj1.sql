@@ -57,3 +57,4 @@ SELECT *
 FROM board;
 SELECT *
 FROM member;
+DESC board;
